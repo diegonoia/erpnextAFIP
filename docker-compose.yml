@@ -2,7 +2,7 @@ version: '3.9'
 
 services:
   backend:
-    image: Dockerfile
+    image: dockerfile
     networks:
       - frappe_network
     deploy:
@@ -18,7 +18,7 @@ services:
       MARIADB_ROOT_PASSWORD: admin
 
   configurator:
-    image: Dockerfile
+    image: dockerfile
     networks:
       - frappe_network
     entrypoint:
@@ -37,7 +37,7 @@ services:
       - logs:/home/frappe/frappe-bench/logs
 
   create-site:
-    image: Dockerfile
+    image: dockerfile
     networks:
       - frappe_network
     entrypoint:
@@ -68,7 +68,7 @@ services:
       - db-data:/var/lib/mysql
 
   frontend:
-    image: Dockerfile
+    image: dockerfile
     networks:
       - frappe_network
     depends_on:
@@ -86,7 +86,7 @@ services:
       - '8081:8080'
 
   queue-long:
-    image: Dockerfile
+    image: dockerfile
     networks:
       - frappe_network
     command: bench worker '--queue' 'long,default,short'
@@ -95,7 +95,7 @@ services:
       - logs:/home/frappe/frappe-bench/logs'
 
   queue-short:
-    image: Dockerfile
+    image: dockerfile
     networks:
       - frappe_network
     command: bench worker '--queue' 'short,default'
@@ -104,7 +104,7 @@ services:
       - logs:/home/frappe/frappe-bench/logs'
 
   scheduler:
-    image: Dockerfile
+    image: dockerfile
     networks:
       - frappe_network
     command: bench schedule
@@ -123,7 +123,7 @@ services:
       - frappe_network
 
   websocket:
-    image: Dockerfile
+    image: dockerfile
     networks:
       - frappe_network
     command: node /home/frappe/frappe-bench/apps/frappe/socketio.js

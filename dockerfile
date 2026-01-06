@@ -1,4 +1,4 @@
-FROM frappe/erpnext:v15
+FROM frappe/erpnext:v15.93.2
 
 USER frappe
 

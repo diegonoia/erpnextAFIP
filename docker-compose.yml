@@ -1,6 +1,6 @@
 services:
   backend:
-    image: dockerfile
+    image: frappe/erpnext:v15.93.2
     networks:
       - frappe_network
     deploy:

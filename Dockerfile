@@ -1,10 +1,12 @@
-ARG BASE_IMAGE=frappe/erpnext:version-15
-
-FROM ${BASE_IMAGE}
-
-USER root
-
-# copia archivos de apps
-COPY apps.json /home/frappe/frappe-bench/apps.json
+FROM frappe/erpnext:v15
 
 USER frappe
+
+WORKDIR /home/frappe/frappe-bench
+
+# Instalar Argentina Compliance
+RUN bench get-app --branch version-15 https://github.com/fproldan/erpnext_argentina_compliance.git
+
+# Si usas otra versión o repo, ajusta la URL y branch
+
+USER root

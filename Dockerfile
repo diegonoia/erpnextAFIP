@@ -1,4 +1,4 @@
-ARG BASE_IMAGE=frappe/erpnext-worker:version-15
+ARG BASE_IMAGE=frappe/erpnext:version-15
 
 FROM ${BASE_IMAGE}
 

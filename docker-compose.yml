@@ -121,7 +121,7 @@ volumes:
 networks:
   default:
     name: d8g4w00w400so8wsg8880kcg
-    external: false
+    external: true
   traefik:
     name: ac804g4o8s8s8wgw4g4oo0wo
     external: true

@@ -2,7 +2,7 @@ FROM frappe/erpnext:v15
 
 # Clonar la app dentro de la imagen
 RUN cd /home/frappe/frappe-bench && \
-    bench get-app https://github.com/finbyz/argentina_compliance.git --branch v15
+    bench get-app https://github.com/finbyz/argentina_compliance.git --branch main
 
 # Si la app tiene dependencias Python propias (requirements.txt dentro del repo),
 # bench get-app las instala automáticamente. Si no, podés forzarlo con:

@@ -61,7 +61,7 @@ services:
     depends_on:
       - backend
 
-frontend:
+  frontend:
     build: .
     restart: unless-stopped
     command: nginx-entrypoint.sh
@@ -74,9 +74,6 @@ frontend:
       UPSTREAM_REAL_IP_RECURSIVE: "off"
       PROXY_READ_TIMEOUT: 120
       CLIENT_MAX_BODY_SIZE: 50m
-    labels:
-      caddy: https://erp.drimysgin.com
-      caddy.reverse_proxy: "{{upstreams 8080}}"
     networks:
       - default
       - traefik

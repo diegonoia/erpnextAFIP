@@ -74,12 +74,8 @@ services:
       UPSTREAM_REAL_IP_RECURSIVE: "off"
       PROXY_READ_TIMEOUT: 120
       CLIENT_MAX_BODY_SIZE: 50m
-      HTTP_PORT: 8181
     volumes:
       - sites:/home/frappe/frappe-bench/sites
-      
-    ports:
-      - "8181:8080"
     depends_on:
       - backend
       - websocket

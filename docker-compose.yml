@@ -1,8 +1,8 @@
 version: "3.8"
 
 x-image: &image
-  image: ${REGISTRY_IMAGE:-mi-erpnext-custom}:${IMAGE_TAG:-latest}
-  pull_policy: never   # usa la imagen buildeada localmente por Coolify
+  image: diegonoia/erpnextafip:main
+  pull_policy: never
 
 x-depends-configurator: &depends-configurator
   depends_on:
@@ -16,7 +16,6 @@ x-bench-volumes: &bench-volumes
 
 services:
 
-  # ---------- Setup inicial (corre una vez al arrancar) ----------
   configurator:
     <<: *image
     command: >
@@ -40,7 +39,6 @@ services:
       redis-socketio:
         condition: service_started
 
-  # ---------- Workers ----------
   backend:
     <<: [*image, *depends-configurator, *bench-volumes]
 
@@ -60,26 +58,24 @@ services:
     <<: [*image, *depends-configurator, *bench-volumes]
     command: node /home/frappe/frappe-bench/apps/frappe/socketio.js
 
-  # ---------- Frontend ----------
   frontend:
     <<: *image
     command: nginx-entrypoint.sh
     environment:
       BACKEND: backend:8000
       SOCKETIO: websocket:9000
-      FRAPPE_SITE_NAME_HEADER: 'https://erp.drimysgin.com'
+      FRAPPE_SITE_NAME_HEADER: erp.drimysgin.com
       UPSTREAM_REAL_IP_ADDRESS: 127.0.0.1
       UPSTREAM_REAL_IP_HEADER: X-Forwarded-For
       UPSTREAM_REAL_IP_RECURSIVE: "off"
       PROXY_READ_TIMEOUT: 120
       CLIENT_MAX_BODY_SIZE: 50m
     ports:
-      - "${HTTP_PORT:-8080}:8080"
+      - "8080:8080"
     depends_on:
       - backend
       - websocket
 
-  # ---------- Infraestructura ----------
   db:
     image: mariadb:10.6
     command:
@@ -88,11 +84,11 @@ services:
       - --skip-character-set-client-handshake
       - --skip-innodb-read-only-compressed
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "--password=${DB_ROOT_PASSWORD}"]
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "--password=Tiitf#2027"]
       interval: 5s
       retries: 20
     environment:
-      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-changeme_strong}
+      MYSQL_ROOT_PASSWORD: Tiitf#2027
     volumes:
       - db-data:/var/lib/mysql
 

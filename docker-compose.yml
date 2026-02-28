@@ -92,12 +92,12 @@ services:
       - --skip-character-set-client-handshake
       - --skip-innodb-read-only-compressed
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-u", "root", "--password=Tiitf2027"]
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-u", "root", "--password=Tiitf#2027"]
       interval: 5s
       timeout: 5s
       retries: 20
     environment:
-      MYSQL_ROOT_PASSWORD: Tiitf2027
+      MYSQL_ROOT_PASSWORD: Tiitf#2027
     volumes:
       - db-data:/var/lib/mysql
 

@@ -1,15 +1,10 @@
 FROM frappe/erpnext:v15
 
-USER frappe
+# Clonar la app dentro de la imagen
+RUN cd /home/frappe/frappe-bench && \
+    bench get-app https://github.com/finbyz/argentina_compliance.git --branch v15
 
-WORKDIR /home/frappe/frappe-bench
-
-# Instalar Argentina Compliance (sin especificar repo, usa el oficial de FinByz)
-RUN bench get-app argentina_compliance https://github.com/finbyz/argentina_compliance.git
-
-# Build de los assets incluyendo la nueva app
-RUN bench build --apps frappe,erpnext,argentina_compliance
-
-USER root
-
-EXPOSE 8000
+# Si la app tiene dependencias Python propias (requirements.txt dentro del repo),
+# bench get-app las instala automáticamente. Si no, podés forzarlo con:
+# RUN cd /home/frappe/frappe-bench && \
+#     /home/frappe/frappe-bench/env/bin/pip install -r apps/argentina_compliance/requirements.txt

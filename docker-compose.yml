@@ -77,7 +77,7 @@ services:
     volumes:
       - sites:/home/frappe/frappe-bench/sites
     ports:
-      - "8181:8080"
+      - "8181:8181"
     depends_on:
       - backend
       - websocket

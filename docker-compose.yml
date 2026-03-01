@@ -74,6 +74,19 @@ services:
       UPSTREAM_REAL_IP_RECURSIVE: "off"
       PROXY_READ_TIMEOUT: 120
       CLIENT_MAX_BODY_SIZE: 50m
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.services.erpnext-frontend.loadbalancer.server.port=8080"
+      - "traefik.http.routers.erpnext-https.rule=Host(`erp.drimysgin.com`)"
+      - "traefik.http.routers.erpnext-https.entrypoints=https"
+      - "traefik.http.routers.erpnext-https.tls=true"
+      - "traefik.http.routers.erpnext-https.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.erpnext-https.service=erpnext-frontend"
+      - "traefik.http.routers.erpnext-http.rule=Host(`erp.drimysgin.com`)"
+      - "traefik.http.routers.erpnext-http.entrypoints=http"
+      - "traefik.http.routers.erpnext-http.middlewares=redirect-to-https"
+      - "traefik.http.routers.erpnext-http.service=erpnext-frontend"
+      - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
     networks:
       - default
       - traefik
